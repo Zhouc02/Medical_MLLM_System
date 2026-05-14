@@ -1,0 +1,83 @@
+# 简易医学多模态大语言模型辅助诊断系统
+
+> [!IMPORTANT]
+> 该项目由于年代久远，缺失部分内容，故可能无法完整运行！
+> 若需完整运行，需自行更改部分代码并进行调试！
+> 但是用于应付课程或许有用？
+
+## 简要介绍
+本项目实现简易的前后端医学辅助诊断系统，包含多种功能，核心功能为：上传医学影像，模型自主诊断，对诊断结果文本进行实体识别。其它功能详情可见Medical_LLM->README.md
+
+本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，现在看来好像有那么一点点意思。项目主要包含Django后端与Vue前端，分别在Medical_LLM文件夹及medical_vue文件夹中。
+
+本项目所采用的大模型为XrayGLM，但可以更换为其它更先进的医疗/其它领域的多模态大模型；命名实体识别部分为当初实验室自行开发设计，故在此不给出，可自行寻找适合的中文医学命名实体识别模型。
+
+## 主要框架
+Django、Vue、MySQL、Redis、Flume、Hadoop、Hive（后三者非必要，只影响少部分功能）
+
+## 环境配置
+> [!NOTE]
+> 以下环境配置为三年后试图将其复活而自行尝试的过程，不一定能完美运行
+
+### Python
+```bash
+conda create -n medical
+conda install python=3.9
+micromamba install pytorch==1.12.0 torchvision cudatoolkit==11.6 -c pytorch -c conda-forge
+micromamba install mkl==2024.0
+micromamba install pyarrow
+pip install SwissArmyTransformer==0.3.7
+pip install bitsandbytes==0.39.0
+pip install django djangorestframework django-cors-headers pymysql DBUtils redis psutil GPUtil
+pip install transformers==4.33.0
+micromamba install libaio
+micromamba install libnuma
+pip install numpy==1.20
+pip install pandas==1.2
+pip install Pillow
+micromamba install torchvision -c pytorch -c conda-forge
+pip install deepspeed==0.9.0
+pip install datasets==2.10.1
+pip uninstall -y numpy pandas pyarrow datasets
+micromamba install -c conda-forge pyarrow=11.0.0
+pip install numpy==1.24.3 pandas==1.5.3 datasets==2.10.1
+micromamba install scipy channels
+micromamba install daphne
+micromamba uninstall pyarrow
+micromamba install -c conda-forge pyarrow=11.0.0
+pip install numpy==1.24.3 pandas==1.5.3 datasets==2.10.1
+```
+我印象中deepspeed库需要自行编译为CUDA版本，当然如果你使用其它的模型可能不需要
+
+### MySQL
+这里给出一个快速部署过程，免安装，不用可以直接删除，注意路径自行修改。
+```bash
+wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.44-linux-glibc2.12-x86_64.tar.gz
+tar -zxvf mysql-5.7.44-linux-glibc2.12-x86_64.tar.gz
+mv mysql-5.7.44-linux-glibc2.12-x86_64 mysql
+cd mysql
+mkdir data logs
+vim my.cnf
+export LD_LIBRARY_PATH=/root/anaconda3/envs/medical/lib:$LD_LIBRARY_PATH
+./bin/mysqld --initialize --user=root --basedir=/opt/mysql --datadir=/opt/mysql/data
+./bin/mysqld_safe --user=root &
+./bin/mysql -uroot -p -S /opt/mysql/mysql.sock
+ALTER USER 'root'@'localhost' IDENTIFIED BY '12345678';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+create database medical;
+use medical;
+source /opt/mysql/medical.sql;
+quit;
+```
+### Redis
+同样免安装快速部署，但需要自行编译
+```bash
+wget https://download.redis.io/releases/redis-6.2.14.tar.gz
+tar -zxvf redis-6.2.14.tar.gz
+mv redis-6.2.14 redis
+cd redis
+make
+vim redis.conf
+./src/redis-server ./redis.conf
+```

@@ -6,18 +6,18 @@
 > 但是用于应付课程或许有用？
 
 ## 简要介绍
-本项目实现简易的前后端医学辅助诊断系统，包含多种功能，核心功能为：上传医学影像，模型自主诊断，对诊断结果文本进行实体识别。其它功能详情可见[Medical_LLM->README.md](./Medical_LLM/README.md)
+本项目实现简易的前后端医学辅助诊断系统，包含多种功能，核心功能为：上传医学影像，模型自主诊断，对诊断结果文本进行实体识别。其它功能详情可见[Medical_LLM->README.md](./Medical_LLM/README.md)。
 
 本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，在这方面那时也没什么可参考的前后端项目。本项目主要包含Django后端与Vue前端，分别在[Medical_LLM](./Medical_LLM)文件夹及[medical_vue](./medical_vue)文件夹中。
 
 本项目所采用的大模型为[XrayGLM](https://github.com/WangRongsheng/XrayGLM)，但可以更换为其它更先进的医疗/其它领域的多模态大模型；命名实体识别部分为当初实验室自行开发设计，故在此不给出，可自行寻找适合的中文医学命名实体识别模型。
 
 ## 主要框架
-Django、Vue、MySQL、Redis、Flume、Hadoop、Hive（后三者非必要，只影响少部分功能）
+Django、Vue、MySQL、Redis、Flume、Hadoop、Hive（后三者非必要，只影响少部分功能）。
 
 ## 环境配置
 > [!NOTE]
-> 以下环境配置为三年后试图将其复活而自行尝试的过程，不一定能完美运行
+> 以下环境配置为三年后试图将其复活而自行尝试的过程，不一定能完美运行！
 
 ### Python
 ```bash
@@ -47,7 +47,7 @@ micromamba uninstall pyarrow
 micromamba install -c conda-forge pyarrow=11.0.0
 pip install numpy==1.24.3 pandas==1.5.3 datasets==2.10.1
 ```
-我印象中deepspeed库需要自行编译为CUDA版本，当然如果你使用其它的模型可能不需要
+我印象中deepspeed库需要自行编译为CUDA版本，当然如果你使用其它的模型可能不需要。
 
 ### MySQL
 这里给出一个快速部署过程，免安装，不用可以直接删除，注意路径自行修改。
@@ -73,7 +73,7 @@ source /opt/mysql/medical.sql;
 quit;
 ```
 ### Redis
-同样免安装快速部署，但需要自行编译
+同样免安装快速部署，但需要自行编译。
 ```bash
 wget https://download.redis.io/releases/redis-6.2.14.tar.gz
 tar -zxvf redis-6.2.14.tar.gz
@@ -105,3 +105,9 @@ wget https://hf-mirror.com/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_
 > 代码里存在大量的硬编码路径和IP，需要根据你的实际情况修改！
 
 如果你能搞定上面这些步骤，那么就可以使用`python manage.py runserver`启动Django了。
+## 使用须知
+> [!CAUTION]
+> 任何辅助诊断类模型都有可能输出与事实不符的内容！
+
+## 致谢
+感谢[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)、[VisualGLM-6B](https://github.com/zai-org/VisualGLM-6B)和[XrayGLM](https://github.com/WangRongsheng/XrayGLM)在当年的开创性工作。

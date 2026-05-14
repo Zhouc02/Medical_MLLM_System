@@ -96,7 +96,7 @@ wget https://huggingface.co/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank
 ```bash
 wget https://hf-mirror.com/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_00_model_states.pt
 ```
-其次，由于采用了[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)的分词，需要下载一些东西到`Medical_LLM/VisualGLM/THUDM/chatglm-6b`中，至于是什么我没有时间翻找，应该在`https://huggingface.co/zai-org/chatglm-6b/tree/main`中。
+其次，由于采用了[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)的分词，需要下载一些东西到`Medical_LLM/VisualGLM/THUDM/chatglm-6b`中，至于是什么我没有时间翻找，应该在`https://huggingface.co/zai-org/chatglm-6b/tree/main`中（或者是VisualGLM-6B的）。我印象中需要的是SAT版本的模型不是HF版的，当初找了很久才找到，直接远程下载的清华网盘链接已经失效了。
 
 如果你想使用更先进的模型，请根据实际情况修改`Medical_LLM/Medical_LLM/apps.py`的`ready()`函数，该函数的作用是当Django启动时同时后台挂载模型。然后根据模型的对话API，修改`Medical_LLM/MLLM/views.py`的`talk()`函数。
 ### NER

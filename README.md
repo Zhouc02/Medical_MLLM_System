@@ -8,7 +8,7 @@
 ## 简要介绍
 本项目实现简易的前后端医学辅助诊断系统，包含多种功能，核心功能为：上传医学影像，模型自主诊断，对诊断结果文本进行实体识别。其它功能详情可见[Medical_LLM->README.md](./Medical_LLM/README.md)
 
-本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，现在看来好像有那么一点点意思。项目主要包含Django后端与Vue前端，分别在Medical_LLM文件夹及medical_vue文件夹中。
+本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，现在看来好像有那么一点点意思。项目主要包含Django后端与Vue前端，分别在[Medical_LLM](./Medical_LLM)文件夹及[medical_vue](./medical_vue)文件夹中。
 
 本项目所采用的大模型为[XrayGLM](https://github.com/WangRongsheng/XrayGLM)，但可以更换为其它更先进的医疗/其它领域的多模态大模型；命名实体识别部分为当初实验室自行开发设计，故在此不给出，可自行寻找适合的中文医学命名实体识别模型。
 
@@ -62,6 +62,8 @@ export LD_LIBRARY_PATH=/root/anaconda3/envs/medical/lib:$LD_LIBRARY_PATH
 ./bin/mysqld --initialize --user=root --basedir=/opt/mysql --datadir=/opt/mysql/data
 ./bin/mysqld_safe --user=root &
 ./bin/mysql -uroot -p -S /opt/mysql/mysql.sock
+```
+```sql
 ALTER USER 'root'@'localhost' IDENTIFIED BY '12345678';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '12345678' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

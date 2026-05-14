@@ -9,7 +9,7 @@
 import os
 import sys
 
-sys.path.append('/public/home/medical_2324/Medical_LLM/VisualGLM/model')
+#sys.path.append('/public/home/medical_2324/Medical_LLM/VisualGLM/model')
 import re
 from functools import partial
 from typing import Optional, Tuple, Union, List, Callable, Dict, Any

@@ -8,7 +8,7 @@
 ## 简要介绍
 本项目实现简易的前后端医学辅助诊断系统，包含多种功能，核心功能为：上传医学影像，模型自主诊断，对诊断结果文本进行实体识别。其它功能详情可见[Medical_LLM->README.md](./Medical_LLM/README.md)
 
-本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，现在看来好像有那么一点点意思。项目主要包含Django后端与Vue前端，分别在[Medical_LLM](./Medical_LLM)文件夹及[medical_vue](./medical_vue)文件夹中。
+本项目着手开发时距离ChatGPT3发布仅过去一年，当时根本没有什么Agent的概念，在这方面那时也没什么可参考的前后端项目。本项目主要包含Django后端与Vue前端，分别在[Medical_LLM](./Medical_LLM)文件夹及[medical_vue](./medical_vue)文件夹中。
 
 本项目所采用的大模型为[XrayGLM](https://github.com/WangRongsheng/XrayGLM)，但可以更换为其它更先进的医疗/其它领域的多模态大模型；命名实体识别部分为当初实验室自行开发设计，故在此不给出，可自行寻找适合的中文医学命名实体识别模型。
 
@@ -96,12 +96,12 @@ wget https://huggingface.co/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank
 ```bash
 wget https://hf-mirror.com/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_00_model_states.pt
 ```
-其次，由于采用了[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)的分词，需要下载一些东西到`Medical_LLM/VisualGLM/THUDM/chatglm-6b`中，至于是什么我没有时间翻找，应该在`huggingface.co/zai-org/chatglm-6b/tree/main`中。
+其次，由于采用了[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)的分词，需要下载一些东西到`Medical_LLM/VisualGLM/THUDM/chatglm-6b`中，至于是什么我没有时间翻找，应该在`https://huggingface.co/zai-org/chatglm-6b/tree/main`中。
 
 如果你想使用更先进的模型，请根据实际情况修改`Medical_LLM/Medical_LLM/apps.py`的`ready()`函数，该函数的作用是当Django启动时同时后台挂载模型。然后根据模型的对话API，修改`Medical_LLM/MLLM/views.py`的`talk()`函数。
 ### NER
 还请自行寻找合适的中文医学命名实体识别模型，然后根据实际情况修改`Medical_LLM/MLLM/views.py`的`ner_predict()`函数。
-> [!NOTE]
+> [!WARNING]
 > 代码里存在大量的硬编码路径和IP，需要根据你的实际情况修改！
 
 如果你能搞定上面这些步骤，那么就可以使用`python manage.py runserver`启动Django了。

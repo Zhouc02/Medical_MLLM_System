@@ -83,3 +83,25 @@ make
 vim redis.conf
 ./src/redis-server ./redis.conf
 ```
+###前端
+
+前端采用Vue2设计，由于脱离Vue开发已久，这里不再详细讲述如何安装node.js，需要的脚手架应该都在[medical_vue](./medical_vue)下的`package.json`和`package-lock.json`中。
+##模型下载
+### MLLM
+需要的XrayGLM模型可以从官方提供的huggingface中下载，下载到`Medical_LLM/VisualGLM/model/checkpoint/XrayGLM-3000/3000`中：
+```bash
+wget https://huggingface.co/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_00_model_states.pt
+```
+镜像下载链接：
+```bash
+wget https://hf-mirror.com/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_00_model_states.pt
+```
+其次，由于采用了[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)的分词，需要下载一些东西到`Medical_LLM/VisualGLM/THUDM/chatglm-6b`中，至于是什么我没有时间翻找，应该在`huggingface.co/zai-org/chatglm-6b/tree/main`中。
+
+如果你想使用更先进的模型，请根据实际情况修改`Medical_LLM/Medical_LLM/apps.py`的`ready()`函数，该函数的作用是当Django启动时同时后台挂载模型。然后根据模型的对话API，修改`Medical_LLM/MLLM/views.py`的`talk()`函数。
+### NER
+还请自行寻找合适的中文医学命名实体识别模型，然后根据实际情况修改`Medical_LLM/MLLM/views.py`的`ner_predict()`函数。
+> [!NOTE]
+> 代码里存在大量的硬编码路径和IP，需要根据你的实际情况修改！
+
+如果你能搞定上面这些步骤，那么就可以使用`python manage.py runserver`启动Django了。

@@ -109,5 +109,6 @@ wget https://hf-mirror.com/wangrongsheng/XrayGLM-3000/resolve/main/3000/mp_rank_
 > [!CAUTION]
 > 任何辅助诊断类模型都有可能输出与事实不符的内容！
 
+本项目的license遵从XrayGLM。
 ## 致谢
 感谢[ChatGLM-6B](https://github.com/zai-org/ChatGLM-6B)、[VisualGLM-6B](https://github.com/zai-org/VisualGLM-6B)和[XrayGLM](https://github.com/WangRongsheng/XrayGLM)在当年的开创性工作。

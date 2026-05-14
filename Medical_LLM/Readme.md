@@ -1,24 +1,6 @@
 Django后端说明：
 
-数据库：职工表staff：
-
-    id,name,password,auth
-
-数据库：患者信息patient：
-
-    token,name,self_id,text_path
-
-系统Admin路径：
-
-    system_urls/
-
-说明文档路径：
-
-    docs/
-
-日志格式说明：
-
-    type,executor,content,add_time
+[!NOTE]因时间过长，以下内容不一定准确，还请注意
 
 Hadoop路径作用：
 

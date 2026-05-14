@@ -86,6 +86,7 @@ vim redis.conf
 ###前端
 
 前端采用Vue2设计，由于脱离Vue开发已久，这里不再详细讲述如何安装node.js，需要的脚手架应该都在[medical_vue](./medical_vue)下的`package.json`和`package-lock.json`中。
+
 ##模型下载
 ### MLLM
 需要的XrayGLM模型可以从官方提供的huggingface中下载，下载到`Medical_LLM/VisualGLM/model/checkpoint/XrayGLM-3000/3000`中：
